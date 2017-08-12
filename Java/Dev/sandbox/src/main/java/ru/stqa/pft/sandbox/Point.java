@@ -14,15 +14,19 @@ public class Point {
     this.y = y;
   }
 
-  public static double distance(Point p1, Point p2) {
-    double dist = Math.sqrt(Math.pow((p1.x-p2.x),2) + Math.pow((p1.y-p2.y),2));
+//  public static double distance(Point p1, Point p2) {
+//    double dist = Math.sqrt(Math.pow((p1.x-p2.x),2) + Math.pow((p1.y-p2.y),2));
+//    return dist;
+//  }
+  public double distance(Point p2) {
+    double dist = Math.sqrt((this.x-p2.x)*(this.x-p2.x)+(this.y-p2.y)*(this.y-p2.y));
     return dist;
   }
 
   public static void main(String[] args) {
     Point p1 = new Point(3, 2);
     Point p2 = new Point(5, 7);
-    System.out.println("Wynik: " + distance(p1, p2));
+    System.out.println("Wynik: "+ p1.distance(p2) );
   }
 
   @Test
