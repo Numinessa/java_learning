@@ -1,9 +1,13 @@
 package ru.stqa.pft.sandbox;
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 public class Point {
   private double x;
   private double y;
+
 
   public Point(double x, double y) {
     this.x = x;
@@ -20,7 +24,14 @@ public class Point {
     Point p2 = new Point(5, 7);
     System.out.println("Wynik: " + distance(p1, p2));
   }
+
+  @Test
+  public void Point() {
+    Point p1 = new Point(3, 2);
+    Assert.assertEquals(p1.x == 10.0, p1.y == 30.0);
+  }
 }
+
 
 
 
