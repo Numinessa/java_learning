@@ -10,10 +10,6 @@ public class ContactHelper extends HelperBase{
     super(wd);
   }
 
-  public void returnToHomePage() {
-    clickSub(By.linkText("group_pgae"));
-  }
-
   public void submitNewAddress() {
     clickSub(By.xpath("//div[@id='content']/form/input[21]"));
   }
@@ -29,5 +25,32 @@ public class ContactHelper extends HelperBase{
 
   public void initAddressCreation() {
     clickSub(By.linkText("add new"));
+  }
+
+  public void selectFirstAddress() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedAddress() {
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
+
+  public void acceptDelete() {
+    wd.switchTo().alert().accept();
+  }
+
+  public void goToGroupPage() {
+    clickSub(By.linkText("group_pgae"));
+  }
+  public void goToHomePage(){
+    click(By.linkText("home"));
+  }
+
+  public void clickEditAddress() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
+
+  public void updateButton() {
+    click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 }
