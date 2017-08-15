@@ -1,8 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 
 public class ContactHelper extends HelperBase{
@@ -15,13 +19,22 @@ public class ContactHelper extends HelperBase{
     clickSub(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void fillAddressForm(AddressData addressData) {
+  public void fillAddressForm(AddressData addressData, boolean creation) {
     typeName(By.name("firstname"), addressData.getFirstName());
     clickSub(By.name("middlename"));
     wd.findElement(By.name("middlename")).sendKeys(addressData.getMiddleName());
     typeName(By.name("lastname"), addressData.getLastName());
+
+
     typeName(By.name("address"), addressData.getAddress());
     typeName(By.name("mobile"), addressData.getTelephoneNumber());
+
+    if (creation){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
+    }else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+
   }
 
   public void initAddressCreation() {

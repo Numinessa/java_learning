@@ -38,7 +38,7 @@ public class ApplicationManager {
     }
 
     System.setProperty("webdriver.gecko.driver", "C:\\geckodriver-v0.18.0-arm7hf\\geckodriver.exe");
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
