@@ -37,7 +37,11 @@ public class HelperBase {
 
   protected void typeName(By locator, String text) {
     clickSub(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
+    if (text == null) {
+
+      wd.findElement(locator).clear();
+      wd.findElement(locator).sendKeys(text);
+
+    }
   }
 }
