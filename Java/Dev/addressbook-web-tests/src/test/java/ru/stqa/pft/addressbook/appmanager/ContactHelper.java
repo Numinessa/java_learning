@@ -56,6 +56,7 @@ public class ContactHelper extends HelperBase{
   public void goToGroupPage() {
     clickSub(By.linkText("group_pgae"));
   }
+
   public void goToHomePage(){
     click(By.linkText("home"));
   }
@@ -66,5 +67,17 @@ public class ContactHelper extends HelperBase{
 
   public void updateButton() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
+
+  public boolean isThereAnyAddress() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+
+  public void createAAddress(AddressData address) {
+    initAddressCreation();
+    fillAddressForm(new AddressData("Agnieszka", "Sara","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
+    submitNewAddress();
+    goToHomePage();
   }
 }
