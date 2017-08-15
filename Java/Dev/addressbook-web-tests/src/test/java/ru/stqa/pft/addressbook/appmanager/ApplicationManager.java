@@ -1,21 +1,43 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-  FirefoxDriver wd;
+  WebDriver wd;
 
   private ContactHelper contactHelper;
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
+  private String browser;
+
+  public ApplicationManager(String browser) {
+    this.browser = browser;
+  }
+
 
   public void init() {
+
+    if (Objects.equals(browser, BrowserType.FIREFOX)){
+      System.setProperty("webdriver.gecko.driver", "C:\\geckodriver-v0.18.0-arm7hf\\geckodriver.exe");
+      wd = new FirefoxDriver();
+    }else if (Objects.equals(browser, BrowserType.CHROME)){
+      System.setProperty("webdriver.chrome.driver", "C:\\geckodriver-v0.18.0-arm7hf\\chromedriver.exe");
+      wd = new ChromeDriver();
+    }else if (Objects.equals(browser, BrowserType.IE)){
+      System.setProperty("webdriver.ie.driver", "C:\\geckodriver-v0.18.0-arm7hf\\IEDriverServer.exe");
+      wd = new InternetExplorerDriver();
+    }
+
     System.setProperty("webdriver.gecko.driver", "C:\\geckodriver-v0.18.0-arm7hf\\geckodriver.exe");
-    wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
