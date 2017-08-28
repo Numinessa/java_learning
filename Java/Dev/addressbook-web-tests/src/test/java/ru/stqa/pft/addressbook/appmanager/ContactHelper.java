@@ -4,10 +4,14 @@ import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -41,8 +45,8 @@ public class ContactHelper extends HelperBase{
     clickSub(By.linkText("add new"));
   }
 
-  public void selectFirstAddress() {
-    click(By.name("selected[]"));
+  public void selectFirstAddress(int Index) {
+    wd.findElements(By.name("selected[]")).get(Index).click();
   }
 
   public void deleteSelectedAddress() {
@@ -79,5 +83,20 @@ public class ContactHelper extends HelperBase{
     fillAddressForm(new AddressData("Agnieszka", "Sara","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
     submitNewAddress();
     goToHomePage();
+  }
+
+  public int getContactCount() {
+   return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<AddressData> getContactList() {
+    List<AddressData> groups = new ArrayList<AddressData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      String name = element.getText();
+      AddressData group = new AddressData(name, null, null, null, null, null);
+    groups.add(group);
+    }
+    return groups;
   }
 }
