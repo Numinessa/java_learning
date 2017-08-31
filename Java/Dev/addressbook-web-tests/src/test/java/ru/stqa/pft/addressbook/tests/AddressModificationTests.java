@@ -9,9 +9,9 @@ import java.util.List;
 
 public class AddressModificationTests extends TestBase {
 
-  @Test
+  @Test (enabled = false)
   public void testsAddressModification(){
-    app.getNavigationHelper().goToHomePage();
+    app.goTo().goToHomePage();
 
 
     if (! app.getContactHelper().isThereAnyAddress()){
@@ -27,7 +27,7 @@ public class AddressModificationTests extends TestBase {
     app.getContactHelper().fillAddressForm((group), false);
 
     app.getContactHelper().updateButton();
-    app.getNavigationHelper().goToHomePage();
+    app.goTo().goToHomePage();
 
     List<AddressData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() );
