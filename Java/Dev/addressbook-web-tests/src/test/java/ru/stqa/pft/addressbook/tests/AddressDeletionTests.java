@@ -12,7 +12,7 @@ public class AddressDeletionTests extends TestBase {
   public void testAddressDeletion() {
     app.getContactHelper().goToHomePage();
     if (!app.getContactHelper().isThereAnyAddress()) {
-      app.getContactHelper().createAAddress(new AddressData("Agnieszka", "Sara", "Budzyńska", "test2", "Ładna 10/15", "555-555-555"));
+      app.getContactHelper().createAAddress(new AddressData("Agnieszka", "Budzyńska", "test2", "Ładna 10/15", "555-555-555"));
     }
 
     List<AddressData> before = app.getContactHelper().getContactList();

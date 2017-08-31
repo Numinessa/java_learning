@@ -40,11 +40,13 @@ public class GroupHelper extends HelperBase {
   }
 
   public void selectGroup(int index) {
-    //  if (!wd.findElement(By.name("selected[]")).isSelected()) {
-    //  click(By.name("selected[]"));
-    // }
-    wd.findElements(By.name("selected[]")).get(index).click();
+    if (!wd.findElement(By.name("selected[]")).isSelected()) {
+      //  click(By.name("selected[]"));
+      wd.findElements(By.name("selected[]")).get(index).click();
+    }
   }
+  //  wd.findElements(By.name("selected[]")).get(index).click();
+//  }
 
   public void initGroupModification() {
     click(By.name("edit"));
