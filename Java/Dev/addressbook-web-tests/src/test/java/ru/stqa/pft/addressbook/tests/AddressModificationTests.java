@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AddressModificationTests extends TestBase {
 
-  @Test (enabled = false)
+  @Test //(enabled = false)
   public void testsAddressModification(){
     app.goTo().goToHomePage();
 
@@ -20,7 +20,7 @@ public class AddressModificationTests extends TestBase {
     List<AddressData> before = app.getContactHelper().getContactList();
 
     app.getContactHelper().selectFirstAddress(before.size() -1);
-    app.getContactHelper().clickEditAddress();
+    app.getContactHelper().clickEditAddress(before.size() -1);
 
     AddressData group = new AddressData("Agnieszka", "Budzyńska", null, null, null);
    // app.getContactHelper().fillAddressForm(new AddressData("Monika", "Sara","Budzyńska", "test2", "Ładna 10/15", "555-555-555"), false);
