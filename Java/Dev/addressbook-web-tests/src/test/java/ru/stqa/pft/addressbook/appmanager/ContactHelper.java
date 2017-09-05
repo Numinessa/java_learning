@@ -68,8 +68,8 @@ public class ContactHelper extends HelperBase{
  // public void clickEditAddress() {
  //   click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
  // }
- public void clickEditAddress(int Index) {
-   wd.findElements(By.xpath("//table//td[8]")).get(Index).click();
+ public void clickEditAddress() {
+   click(By.xpath("//table//td[8]"));
  }
 
   public void updateButton() {
@@ -83,7 +83,7 @@ public class ContactHelper extends HelperBase{
 
   public void createAAddress(AddressData address) {
     initAddressCreation();
-    fillAddressForm(new AddressData("Agnieszka","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
+    fillAddressForm(new AddressData( null,"Agnieszka","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
     submitNewAddress();
     goToHomePage();
   }
@@ -107,11 +107,12 @@ public List<AddressData> getContactList() {
   List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
   for (WebElement element : elements) {
     List<WebElement> cells = element.findElements(By.tagName("td"));
- //   String name = element.getText();
-    String name = cells.get(1).getText();
- //   String middlename = cells.get(2).getText();
-    String last = cells.get(3).getText();
-    AddressData group = new AddressData( name , last,null, null, null);
+
+    String name = cells.get(2).getText();
+
+    String last = cells.get(1).getText();
+    String id = element.findElement(By.tagName("input")).getAttribute("value");
+    AddressData group = new AddressData( id, name , last,null, null, null);
     groups.add(group);
   }
   return groups;
