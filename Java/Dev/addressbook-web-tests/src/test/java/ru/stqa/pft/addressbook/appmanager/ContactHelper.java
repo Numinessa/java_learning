@@ -83,7 +83,7 @@ public class ContactHelper extends HelperBase{
 
   public void createAAddress(AddressData address) {
     initAddressCreation();
-    fillAddressForm(new AddressData( null,"Agnieszka","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
+    fillAddressForm(new AddressData( "Agnieszka","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
     submitNewAddress();
     goToHomePage();
   }
@@ -111,7 +111,7 @@ public List<AddressData> getContactList() {
     String name = cells.get(2).getText();
 
     String last = cells.get(1).getText();
-    String id = element.findElement(By.tagName("input")).getAttribute("value");
+    int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
     AddressData group = new AddressData( id, name , last,null, null, null);
     groups.add(group);
   }

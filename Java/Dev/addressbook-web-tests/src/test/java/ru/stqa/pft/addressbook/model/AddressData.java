@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class AddressData {
-  private final String id;
+  private int id;
   private final String firstName;
 
   private final String lastName;
@@ -10,8 +10,9 @@ public class AddressData {
   private final String telephoneNumber;
 
 
-  public AddressData( String firstName, String LastName, String group, String address, String telephoneNumber) {
-    this.id = null;
+
+  public AddressData(String firstName, String LastName, String group, String address, String telephoneNumber) {
+    this.id = Integer.MAX_VALUE;
     this.firstName = firstName;
 //    this.middleName = middleName;
     lastName = LastName;
@@ -20,7 +21,7 @@ public class AddressData {
     this.telephoneNumber = telephoneNumber;
   }
 
-  public AddressData(String id, String firstName, String LastName, String group, String address, String telephoneNumber) {
+  public AddressData(int id, String firstName, String LastName, String group, String address, String telephoneNumber) {
     this.id = id;
     this.firstName = firstName;
 //    this.middleName = middleName;
@@ -29,36 +30,13 @@ public class AddressData {
     this.address = address;
     this.telephoneNumber = telephoneNumber;
   }
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
 
-    AddressData that = (AddressData) o;
-
-    if (id != null ? !id.equals(that.id) : that.id != null) return false;
-    if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-    return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  @Override
-  public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
-    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-    return result;
-  }
+  public int getId() {
 
-  @Override
-  public String toString() {
-    return "AddressData{" +
-            "id='" + id + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            '}';
-  }
-
-  public String getId() {
     return id;
   }
 
@@ -83,5 +61,32 @@ public class AddressData {
   public String getTelephoneNumber() {
     return telephoneNumber;
   }
+
+  @Override
+  public String toString() {
+    return "AddressData{" +
+            "id='" + id + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    AddressData that = (AddressData) o;
+
+    if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+    return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = firstName != null ? firstName.hashCode() : 0;
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    return result;
+  }
+
 
 }
