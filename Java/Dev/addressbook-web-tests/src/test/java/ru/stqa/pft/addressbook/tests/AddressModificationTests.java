@@ -21,7 +21,8 @@ public class AddressModificationTests extends TestBase {
     }
     List<AddressData> before = app.getContactHelper().getContactList();
 
-    app.getContactHelper().clickEditAddress();
+//    app.getContactHelper().clickEditAddress();
+    app.getContactHelper().clickEditAddress(before.size() -1);
 
     AddressData group = new AddressData(before.get(before.size() -1).getId(),"Agnieszka", "Budzyńska", null, null, null);
    // app.getContactHelper().fillAddressForm(new AddressData("Monika", "Sara","Budzyńska", "test2", "Ładna 10/15", "555-555-555"), false);

@@ -68,8 +68,8 @@ public class ContactHelper extends HelperBase{
  // public void clickEditAddress() {
  //   click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
  // }
- public void clickEditAddress() {
-   click(By.xpath("//table//td[8]"));
+ public void clickEditAddress(int Index) {
+   wd.findElements(By.xpath("//table//td[8]")).get(Index).click();
  }
 
   public void updateButton() {
