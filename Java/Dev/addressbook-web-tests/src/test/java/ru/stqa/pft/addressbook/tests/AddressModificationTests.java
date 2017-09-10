@@ -1,40 +1,35 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class AddressModificationTests extends TestBase {
 
-  @Test //(enabled = false)
-  public void testsAddressModification(){
-    app.goTo().goToHomePage();
-
-
-    if (! app.getContactHelper().isThereAnyAddress()){
-      app.getContactHelper().createAAddress(new AddressData("Agnieszka","Budzyńska",null, null, null));
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().homePage();
+    if (app.address().getContactList().size() == 0) {
+      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withTelephoneNumber(null));
     }
-    List<AddressData> before = app.getContactHelper().getContactList();
+  }
 
-//    app.getContactHelper().clickEditAddress();
-    app.getContactHelper().clickEditAddress(before.size() -1);
+  @Test
+  public void testsAddressModification() {
 
-    AddressData group = new AddressData(before.get(before.size() -1).getId(),"Agnieszka", "Budzyńska", null, null, null);
-   // app.getContactHelper().fillAddressForm(new AddressData("Monika", "Sara","Budzyńska", "test2", "Ładna 10/15", "555-555-555"), false);
-    app.getContactHelper().fillAddressForm((group), false);
+    List<AddressData> before = app.address().getContactList();
+    int index = before.size() - 1;
+    AddressData group = new AddressData().withId(before.get(index).getId()).withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withTelephoneNumber(null);
+    app.address().modify(index, group);
 
-    app.getContactHelper().updateButton();
-    app.goTo().goToHomePage();
+    List<AddressData> after = app.address().getContactList();
+    Assert.assertEquals(after.size(), before.size());
 
-    List<AddressData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(), before.size() );
-
-    before.remove(before.size() -1);
+    before.remove(index);
     before.add(group);
 
     Comparator<? super AddressData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
@@ -42,4 +37,5 @@ public class AddressModificationTests extends TestBase {
     after.sort(byId);
     Assert.assertEquals(before, after);
   }
+
 }

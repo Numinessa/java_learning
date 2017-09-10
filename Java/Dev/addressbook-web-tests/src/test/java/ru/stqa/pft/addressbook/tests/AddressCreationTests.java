@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class AddressCreationTests extends TestBase {
@@ -16,15 +15,12 @@ public class AddressCreationTests extends TestBase {
   public void testAddressCreation() {
     app.goToHomePage();
 
-    List<AddressData> before = app.getContactHelper().getContactList();
+    List<AddressData> before = app.address().getContactList();
 
-    AddressData group = new AddressData("Agnieszka", "Budzyńska", "test2", "Ładna 10/15", "555-555-555");
-    app.getContactHelper().initAddressCreation();
-    app.getContactHelper().fillAddressForm((group), true);
-    app.getContactHelper().submitNewAddress();
-    app.goToHomePage();
+    AddressData group = new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withTelephoneNumber("555-555-555");//("Agnieszka", "Budzyńska", "test2", "Ładna 10/15", "555-555-555");
+    app.address().makeNewAddress(group);
 
-    List<AddressData> after = app.getContactHelper().getContactList();
+    List<AddressData> after = app.address().getContactList();
 
     Assert.assertEquals(after.size(), before.size() + 1);
     //   wd.findElement(By.linkText("home")).click();

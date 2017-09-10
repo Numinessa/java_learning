@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 
@@ -8,26 +9,27 @@ import java.util.List;
 
 public class AddressDeletionTests extends TestBase {
 
-  @Test (enabled = false)
-  public void testAddressDeletion() {
-    app.getContactHelper().goToHomePage();
-    if (!app.getContactHelper().isThereAnyAddress()) {
-      app.getContactHelper().createAAddress(new AddressData("Agnieszka", "Budzyńska", "test2", "Ładna 10/15", "555-555-555"));
+
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().homePage();
+    if (app.address().getContactList().size() == 0) {
+      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withTelephoneNumber(null));
     }
+  }
 
-    List<AddressData> before = app.getContactHelper().getContactList();
-
-    app.getContactHelper().selectFirstAddress(before.size() - 1);
-    app.getContactHelper().deleteSelectedAddress();
-    app.getContactHelper().acceptDelete();
-    app.getContactHelper().goToHomePage();
-    List<AddressData> after = app.getContactHelper().getContactList();
+  @Test
+  public void testAddressDeletion() {
+    List<AddressData> before = app.address().getContactList();
+    int index = before.size() - 1;
+    app.address().delete(index);
+    List<AddressData> after = app.address().getContactList();
 
     Assert.assertEquals(after.size(), before.size() - 1);
 
-    before.remove(before.size() - 1);
+    before.remove(index);
 
-      Assert.assertEquals(before, after);
+    Assert.assertEquals(before, after);
 
   }
 }

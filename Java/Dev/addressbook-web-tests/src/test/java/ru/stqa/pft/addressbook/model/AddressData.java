@@ -1,55 +1,63 @@
 package ru.stqa.pft.addressbook.model;
 
 public class AddressData {
-  private int id;
-  private final String firstName;
+  private int id = Integer.MAX_VALUE;
+  ;
+  private String firstName;
+  private String lastName;
 
-  private final String lastName;
   private String group;
-  private final String address;
-  private final String telephoneNumber;
+  private String address;
+  private String telephoneNumber;
 
-
-
-  public AddressData(String firstName, String LastName, String group, String address, String telephoneNumber) {
-    this.id = Integer.MAX_VALUE;
-    this.firstName = firstName;
-//    this.middleName = middleName;
-    lastName = LastName;
-    this.group = group;
-    this.address = address;
-    this.telephoneNumber = telephoneNumber;
-  }
-
-  public AddressData(int id, String firstName, String LastName, String group, String address, String telephoneNumber) {
+  public AddressData withId(int id) {
     this.id = id;
-    this.firstName = firstName;
-//    this.middleName = middleName;
-    lastName = LastName;
-    this.group = group;
-    this.address = address;
-    this.telephoneNumber = telephoneNumber;
-  }
-
-  public void setId(int id) {
-    this.id = id;
+    return this;
   }
 
   public int getId() {
 
     return id;
+
   }
+
+  public AddressData withFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  public AddressData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public AddressData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
+  public AddressData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public AddressData withTelephoneNumber(String telephoneNumber) {
+    this.telephoneNumber = telephoneNumber;
+    return this;
+  }
+
 
   public String getFirstName() {
     return firstName;
   }
 //  public String getMiddleName() {
 //    return middleName;
- // }
+  // }
 
   public String getLastName() {
     return lastName;
   }
+
   public String getGroup() {
     return group;
   }
@@ -70,6 +78,7 @@ public class AddressData {
             ", lastName='" + lastName + '\'' +
             '}';
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

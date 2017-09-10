@@ -13,7 +13,7 @@ import ru.stqa.pft.addressbook.model.AddressData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
   public ContactHelper(WebDriver wd) {
     super(wd);
@@ -33,9 +33,9 @@ public class ContactHelper extends HelperBase{
     typeName(By.name("address"), addressData.getAddress());
     typeName(By.name("mobile"), addressData.getTelephoneNumber());
 
-    if (creation){
+    if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
-    }else {
+    } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 
@@ -61,16 +61,16 @@ public class ContactHelper extends HelperBase{
     clickSub(By.linkText("group_pgae"));
   }
 
-  public void goToHomePage(){
+  public void goToHomePage() {
     click(By.linkText("home"));
   }
 
- // public void clickEditAddress() {
- //   click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
- // }
- public void clickEditAddress(int Index) {
-   wd.findElements(By.xpath("//table//td[8]")).get(Index).click();
- }
+  // public void clickEditAddress() {
+  //   click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  // }
+  public void clickEditAddress(int Index) {
+    wd.findElements(By.xpath("//table//td[8]")).get(Index).click();
+  }
 
   public void updateButton() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
@@ -81,40 +81,51 @@ public class ContactHelper extends HelperBase{
   }
 
 
-  public void createAAddress(AddressData address) {
+  public void create(AddressData address) {
     initAddressCreation();
-    fillAddressForm(new AddressData( "Agnieszka","Budzyńska","test2", "Ładna 10/15", "555-555-555"), true);
+    fillAddressForm(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withTelephoneNumber("555-555-555"), true);
     submitNewAddress();
     goToHomePage();
   }
 
   public int getContactCount() {
-   return wd.findElements(By.name("selected[]")).size();
+    return wd.findElements(By.name("selected[]")).size();
   }
 
-//  public List<AddressData> getContactList() {
-//    List<AddressData> groups = new ArrayList<AddressData>();
-//    List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
-//    for (WebElement element : elements) {
-//      String name = element.getText();
-//      AddressData group = new AddressData(name, null, null, null, null, null);
-//    groups.add(group);
-//    }
-//    return groups;
-//  }
-public List<AddressData> getContactList() {
-  List<AddressData> groups = new ArrayList<AddressData>();
-  List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
-  for (WebElement element : elements) {
-    List<WebElement> cells = element.findElements(By.tagName("td"));
+  public List<AddressData> getContactList() {
+    List<AddressData> groups = new ArrayList<AddressData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
 
-    String name = cells.get(2).getText();
+      String name = cells.get(2).getText();
 
-    String last = cells.get(1).getText();
-    int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-    AddressData group = new AddressData( id, name , last,null, null, null);
-    groups.add(group);
+      String last = cells.get(1).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      groups.add(new AddressData().withId(id).withFirstName(name).withLastName(last).withGroup(null).withAddress(null).withTelephoneNumber(null));
+    }
+    return groups;
   }
-  return groups;
-}
+
+  public void modify(int index, AddressData group) {
+    clickEditAddress(index);
+    fillAddressForm((group), false);
+    updateButton();
+    goToHomePage();
+  }
+
+  public void delete(int index) {
+    selectFirstAddress(index);
+    deleteSelectedAddress();
+    acceptDelete();
+    goToHomePage();
+  }
+
+  public void makeNewAddress(AddressData group) {
+    initAddressCreation();
+    fillAddressForm((group), true);
+    submitNewAddress();
+    goToHomePage();
+  }
+
 }
