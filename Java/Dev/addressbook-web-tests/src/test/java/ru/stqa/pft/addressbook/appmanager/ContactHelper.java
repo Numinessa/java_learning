@@ -1,17 +1,18 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -53,6 +54,10 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
 
+  public void selectFirstAddressById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+
   public void acceptDelete() {
     wd.switchTo().alert().accept();
   }
@@ -72,6 +77,10 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.xpath("//table//td[8]")).get(Index).click();
   }
 
+  public void clickEditAddressById(int id) {
+    wd.findElement(By.xpath("//table//td[8]")).click();
+  }
+
   public void updateButton() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
@@ -88,27 +97,8 @@ public class ContactHelper extends HelperBase {
     goToHomePage();
   }
 
-  public int getContactCount() {
-    return wd.findElements(By.name("selected[]")).size();
-  }
-
-  public List<AddressData> getContactList() {
-    List<AddressData> groups = new ArrayList<AddressData>();
-    List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
-    for (WebElement element : elements) {
-      List<WebElement> cells = element.findElements(By.tagName("td"));
-
-      String name = cells.get(2).getText();
-
-      String last = cells.get(1).getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      groups.add(new AddressData().withId(id).withFirstName(name).withLastName(last).withGroup(null).withAddress(null).withTelephoneNumber(null));
-    }
-    return groups;
-  }
-
-  public void modify(int index, AddressData group) {
-    clickEditAddress(index);
+  public void modify( AddressData group) {
+    clickEditAddressById(group.getId());
     fillAddressForm((group), false);
     updateButton();
     goToHomePage();
@@ -121,11 +111,38 @@ public class ContactHelper extends HelperBase {
     goToHomePage();
   }
 
+  public void delete(AddressData group) {
+    selectFirstAddressById(group.getId());
+    deleteSelectedAddress();
+    acceptDelete();
+    goToHomePage();
+  }
+
   public void makeNewAddress(AddressData group) {
     initAddressCreation();
     fillAddressForm((group), true);
     submitNewAddress();
     goToHomePage();
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
+
+  public Contacts all() {
+    Contacts groups = new Contacts();
+    List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+
+      String name = cells.get(2).getText();
+
+      String last = cells.get(1).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      groups.add(new AddressData().withId(id).withFirstName(name).withLastName(last).withGroup(null).withAddress(null).withTelephoneNumber(null));
+    }
+    return groups;
   }
 
 }

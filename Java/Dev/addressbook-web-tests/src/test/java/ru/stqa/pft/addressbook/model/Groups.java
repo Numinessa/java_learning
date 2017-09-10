@@ -13,6 +13,7 @@ public class Groups extends ForwardingSet<GroupData> {
     this.delegate = new HashSet<GroupData>(groups.delegate);
   }
 
+
   public Groups() {
     this.delegate = new HashSet<GroupData>();
   }
