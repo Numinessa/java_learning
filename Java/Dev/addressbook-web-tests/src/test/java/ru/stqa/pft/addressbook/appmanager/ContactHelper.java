@@ -10,9 +10,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -26,14 +24,9 @@ public class ContactHelper extends HelperBase {
 
   public void fillAddressForm(AddressData addressData, boolean creation) {
     typeName(By.name("firstname"), addressData.getFirstName());
-//    clickSub(By.name("middlename"));
-//    wd.findElement(By.name("middlename")).sendKeys(addressData.getMiddleName());
     typeName(By.name("lastname"), addressData.getLastName());
-
-
     typeName(By.name("address"), addressData.getAddress());
     typeName(By.name("mobile"), addressData.getTelephoneNumber());
-
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
     } else {
@@ -82,7 +75,7 @@ public class ContactHelper extends HelperBase {
  //   wd.findElement(By.xpath("//table//td[8]")).click();
 //  }
   public void clickEditAddressById(int id) {
-    wd.findElement(By.xpath("//table//td[8][id='" + id + "']")).click();
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
   }
 
 
@@ -103,8 +96,8 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify( AddressData group) {
-  //  clickEditAddressById(group.getId());
-    clickEditAddress();
+    clickEditAddressById(group.getId());
+ //   clickEditAddress();
     fillAddressForm((group), false);
     updateButton();
     goToHomePage();
@@ -141,9 +134,7 @@ public class ContactHelper extends HelperBase {
     List<WebElement> elements = wd.findElements(By.xpath("//table[@class='sortcompletecallback-applyZebra']//tr[@name='entry']"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
-
       String name = cells.get(2).getText();
-
       String last = cells.get(1).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       groups.add(new AddressData().withId(id).withFirstName(name).withLastName(last).withGroup(null).withAddress(null).withTelephoneNumber(null));
