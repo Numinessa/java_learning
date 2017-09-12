@@ -70,16 +70,21 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  // public void clickEditAddress() {
-  //   click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-  // }
+   public void clickEditAddress() {
+     wd.findElement(By.xpath("//table//td[8]")).click();
+   }
   public void clickEditAddress(int Index) {
     wd.findElements(By.xpath("//table//td[8]")).get(Index).click();
   }
 
+
+ // public void clickEditAddressById(int id) {
+ //   wd.findElement(By.xpath("//table//td[8]")).click();
+//  }
   public void clickEditAddressById(int id) {
-    wd.findElement(By.xpath("//table//td[8]")).click();
+    wd.findElement(By.xpath("//table//td[8][id='" + id + "']")).click();
   }
+
 
   public void updateButton() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
@@ -98,7 +103,8 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify( AddressData group) {
-    clickEditAddressById(group.getId());
+  //  clickEditAddressById(group.getId());
+    clickEditAddress();
     fillAddressForm((group), false);
     updateButton();
     goToHomePage();
