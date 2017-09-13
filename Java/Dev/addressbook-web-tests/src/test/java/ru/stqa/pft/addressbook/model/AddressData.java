@@ -7,9 +7,72 @@ public class AddressData {
   private String lastName;
   private String group;
   private String address;
+  private String address2;
+  private String allEmail;
   private String homeTelephoneNumber;
   private String mobileTelephoneNumber;
   private String workTelephoneNumber;
+  private String email1;
+  private String email2;
+  private String email3;
+  private String allAddress;
+  private String allPhones;
+
+
+  public String getAllAddress() {
+    return allAddress;
+  }
+
+  public AddressData withAllAddress(String allAddress) {
+    this.allAddress = allAddress;
+    return this;
+  }
+
+  public String getEmail1() {
+    return email1;
+  }
+
+  public AddressData withEmail1(String email1) {
+    this.email1 = email1;
+    return this;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public AddressData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public AddressData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
+  public String getAllEmail() {
+    return allEmail;
+  }
+
+  public AddressData withAllEmail(String email) {
+    this.allEmail = email;
+    return this;
+  }
+
+
+  public String getAddress2() {
+    return address2;
+  }
+
+  public AddressData withAddress2(String address2) {
+    this.address2 = address2;
+    return this;
+  }
 
   public String getAllPhones() {
     return allPhones;
@@ -20,7 +83,7 @@ public class AddressData {
     return this;
   }
 
-  private String allPhones;
+
 
   public AddressData withId(int id) {
     this.id = id;
@@ -28,7 +91,6 @@ public class AddressData {
   }
 
   public int getId() {
-
     return id;
 
   }
