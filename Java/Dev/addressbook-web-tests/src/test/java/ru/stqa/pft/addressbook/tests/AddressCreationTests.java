@@ -19,7 +19,7 @@ public class AddressCreationTests extends TestBase {
 
     Contacts before =  app.address().all();
 
-    AddressData group = new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withTelephoneNumber("555-555-555");//("Agnieszka", "Budzyńska", "test2", "Ładna 10/15", "555-555-555");
+    AddressData group = new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withHomeTelephoneNumber("555-555-555");//("Agnieszka", "Budzyńska", "test2", "Ładna 10/15", "555-555-555");
     app.address().makeNewAddress(group);
 
     Contacts after = app.address().all();

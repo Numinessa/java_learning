@@ -5,10 +5,11 @@ public class AddressData {
   ;
   private String firstName;
   private String lastName;
-
   private String group;
   private String address;
-  private String telephoneNumber;
+  private String homeTelephoneNumber;
+  private String mobileTelephoneNumber;
+  private String workTelephoneNumber;
 
   public AddressData withId(int id) {
     this.id = id;
@@ -41,11 +42,20 @@ public class AddressData {
     return this;
   }
 
-  public AddressData withTelephoneNumber(String telephoneNumber) {
-    this.telephoneNumber = telephoneNumber;
+  public AddressData withHomeTelephoneNumber(String telephoneNumber) {
+    this.homeTelephoneNumber = telephoneNumber;
     return this;
   }
 
+  public AddressData withMobileTelephoneNumber (String mobileTelephoneNumber){
+    this.mobileTelephoneNumber = mobileTelephoneNumber;
+    return this;
+  }
+
+  public AddressData withWorkTelephoneNumber (String workTelephoneNumber){
+    this.workTelephoneNumber = workTelephoneNumber;
+    return this;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -66,8 +76,16 @@ public class AddressData {
     return address;
   }
 
-  public String getTelephoneNumber() {
-    return telephoneNumber;
+  public String getHomeTelephoneNumber() {
+    return homeTelephoneNumber;
+  }
+
+  public String getMobileTelephoneNumber() {
+    return mobileTelephoneNumber;
+  }
+
+  public String getWorkTelephoneNumber() {
+    return workTelephoneNumber;
   }
 
   @Override
