@@ -11,6 +11,17 @@ public class AddressData {
   private String mobileTelephoneNumber;
   private String workTelephoneNumber;
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public AddressData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  private String allPhones;
+
   public AddressData withId(int id) {
     this.id = id;
     return this;
@@ -116,4 +127,5 @@ public class AddressData {
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     return result;
   }
+
 }
