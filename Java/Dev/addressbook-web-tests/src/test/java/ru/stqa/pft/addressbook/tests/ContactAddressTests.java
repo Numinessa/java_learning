@@ -27,6 +27,7 @@ public class ContactAddressTests extends TestBase {
     AddressData contactInfoFromEditForm = app.address().infoFromEditForm(address);
 
     MatcherAssert.assertThat(address.getAllAddress(), CoreMatchers.equalTo(margeAddresses(contactInfoFromEditForm)) );
+
   }
 
   private String margeAddresses(AddressData contact) {

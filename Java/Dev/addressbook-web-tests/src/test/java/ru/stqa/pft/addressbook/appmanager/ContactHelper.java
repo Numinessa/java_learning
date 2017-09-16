@@ -25,6 +25,7 @@ public class ContactHelper extends HelperBase {
   public void fillAddressForm(AddressData addressData, boolean creation) {
     typeName(By.name("firstname"), addressData.getFirstName());
     typeName(By.name("lastname"), addressData.getLastName());
+    attach(By.name("photo"), addressData.getFoto());
     typeName(By.name("address"), addressData.getAddress());
     typeName(By.name("mobile"), addressData.getHomeTelephoneNumber());
     if (creation) {
@@ -78,6 +79,9 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
   }
 
+  public void clickDetailsAddressById( int id){
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[7]/a", id))).click();
+  }
 
   public void updateButton() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
@@ -98,6 +102,12 @@ public class ContactHelper extends HelperBase {
   public void modify( AddressData group) {
     clickEditAddressById(group.getId());
  //   clickEditAddress();
+    fillAddressForm((group), false);
+    updateButton();
+    goToHomePage();
+  }
+  public void details( AddressData group){
+    clickDetailsAddressById(group.getId());
     fillAddressForm((group), false);
     updateButton();
     goToHomePage();
@@ -164,5 +174,13 @@ public class ContactHelper extends HelperBase {
             withLastName(lastname).withAddress(address).withAddress2(address2).withEmail1(email1).withEmail2(email2).withEmail3(email3).
             withHomeTelephoneNumber(home).withMobileTelephoneNumber(mobile).withWorkTelephoneNumber(work);
   }
+
+  public AddressData infoFromDetailsForm(AddressData contact){
+    clickDetailsAddressById(contact.getId());
+//    String firstname = wd.findElement(By.xpath("//div[@id='content']//b")).getText();
+    String all = wd.findElement(By.xpath("//div[@id='content']")).getText();
+    return new AddressData().withId(contact.getId()).withFirstName(all).withAddress(all).withEmail1(all).withWorkTelephoneNumber(all);
+  }
+
 
 }

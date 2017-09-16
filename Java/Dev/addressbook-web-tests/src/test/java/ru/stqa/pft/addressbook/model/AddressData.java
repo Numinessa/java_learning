@@ -1,8 +1,9 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
+
 public class AddressData {
   private int id = Integer.MAX_VALUE;
-  ;
   private String firstName;
   private String lastName;
   private String group;
@@ -17,7 +18,18 @@ public class AddressData {
   private String email3;
   private String allAddress;
   private String allPhones;
+  private File foto;
 
+
+  public File getFoto() {
+    return foto;
+
+  }
+
+  public AddressData withFoto(File foto) {
+    this.foto = foto;
+    return this;
+  }
 
   public String getAllAddress() {
     return allAddress;

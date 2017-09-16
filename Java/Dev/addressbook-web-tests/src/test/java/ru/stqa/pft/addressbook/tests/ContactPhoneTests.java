@@ -28,7 +28,6 @@ public class ContactPhoneTests extends TestBase {
     AddressData contactInfoFromEditForm = app.address().infoFromEditForm(contact);
 
     assertThat(contact.getAllPhones(), equalTo(margePhones(contactInfoFromEditForm)));
-  //  assertThat(contact.getMobileTelephoneNumber(), equalTo(cleaned(contactInfoFromEditForm.getMobileTelephoneNumber())));
 
   }
 
