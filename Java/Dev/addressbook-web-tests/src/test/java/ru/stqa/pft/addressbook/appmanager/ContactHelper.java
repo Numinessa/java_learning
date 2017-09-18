@@ -19,17 +19,18 @@ public class ContactHelper extends HelperBase {
   }
 
   public void submitNewAddress() {
-    clickSub(By.xpath("//div[@id='content']/form/input[21]"));
+  //  clickSub(By.xpath("//div[@id='content']/form/input[21]"));
+    wd.findElement(By.name("submit")).click();
   }
 
   public void fillAddressForm(AddressData addressData, boolean creation) {
     typeName(By.name("firstname"), addressData.getFirstName());
     typeName(By.name("lastname"), addressData.getLastName());
-    attach(By.name("photo"), addressData.getFoto());
+//    attach(By.name("photo"), addressData.getFoto());
     typeName(By.name("address"), addressData.getAddress());
     typeName(By.name("mobile"), addressData.getHomeTelephoneNumber());
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
+      wd.findElement(By.name("submit")).click();//).selectByVisibleText(addressData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -130,7 +131,7 @@ public class ContactHelper extends HelperBase {
   public void makeNewAddress(AddressData group) {
     initAddressCreation();
     fillAddressForm((group), true);
-    submitNewAddress();
+//    submitNewAddress();
     goToHomePage();
   }
 

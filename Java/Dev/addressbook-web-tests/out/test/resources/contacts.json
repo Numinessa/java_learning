@@ -1,0 +1,37 @@
+[
+  {
+    "firstName": "name 0",
+    "lastName": "surname 0",
+    "address": "address 0",
+    "homeTelephoneNumber": "555-555-555 0",
+    "email1": "email@wp.pl 0"
+  },
+  {
+    "firstName": "name 1",
+    "lastName": "surname 1",
+    "address": "address 1",
+    "homeTelephoneNumber": "555-555-555 1",
+    "email1": "email@wp.pl 1"
+  },
+  {
+    "firstName": "name 2",
+    "lastName": "surname 2",
+    "address": "address 2",
+    "homeTelephoneNumber": "555-555-555 2",
+    "email1": "email@wp.pl 2"
+  },
+  {
+    "firstName": "name 3",
+    "lastName": "surname 3",
+    "address": "address 3",
+    "homeTelephoneNumber": "555-555-555 3",
+    "email1": "email@wp.pl 3"
+  },
+  {
+    "firstName": "name 4",
+    "lastName": "surname 4",
+    "address": "address 4",
+    "homeTelephoneNumber": "555-555-555 4",
+    "email1": "email@wp.pl 4"
+  }
+]
