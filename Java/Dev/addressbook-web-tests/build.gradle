@@ -1,3 +1,6 @@
+import com.sun.javafx.runtime.SystemProperties
+import org.gradle.api.tasks.testing.Test
+
 apply plugin: 'java'
 
 
@@ -12,4 +15,28 @@ dependencies {
     compile 'com.beust:jcommander:1.72'
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
     compile 'com.google.code.gson:gson:2.8.1'
+}
+task testGroups(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-groups.xml'
+    }
+
+    if (project.hasProperty('browser')) {
+        systemProperties 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperties 'target', "${target}"
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-contacts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperties 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperties 'target', "${target}"
+    }
 }
