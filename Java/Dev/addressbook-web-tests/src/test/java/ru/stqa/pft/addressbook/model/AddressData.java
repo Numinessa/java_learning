@@ -3,19 +3,27 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
-
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("contact")
 
 public class AddressData {
+  @Id
+  @Column(name = "id")
   @XStreamOmitField
   private int id = Integer.MAX_VALUE;
   @Expose
+  @Column(name = "firstname")
   private String firstName;
   @Expose
+  @Column(name = "lastname")
   private String lastName;
+  @Transient
   private String group;
   @Expose
   private String address;
@@ -24,10 +32,14 @@ public class AddressData {
 
   private String allEmail;
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String homeTelephoneNumber;
-
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobileTelephoneNumber;
-
+  @Column(name = "work")
+  @Type(type = "text")
   private String workTelephoneNumber;
   @Expose
   private String email1;
@@ -37,18 +49,30 @@ public class AddressData {
   private String email3;
 
   private String allAddress;
-
+  @Transient
   private String allPhones;
-  private File foto;
+
+  @Override
+  public String toString() {
+    return "AddressData{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
+  }
+
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String foto;
 
 
   public File getFoto() {
-    return foto;
+    return new File(foto);
 
   }
 
   public AddressData withFoto(File foto) {
-    this.foto = foto;
+    this.foto = foto.getPath();
     return this;
   }
 
@@ -192,15 +216,6 @@ public class AddressData {
 
   public String getWorkTelephoneNumber() {
     return workTelephoneNumber;
-  }
-
-  @Override
-  public String toString() {
-    return "AddressData{" +
-            "id='" + id + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            '}';
   }
 
   @Override
