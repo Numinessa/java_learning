@@ -27,9 +27,9 @@ public class AddressData {
   private String group;
   @Expose
   private String address;
-
+  @Transient
   private String address2;
-
+  @Transient
   private String allEmail;
   @Expose
   @Column(name = "home")
@@ -43,11 +43,11 @@ public class AddressData {
   private String workTelephoneNumber;
   @Expose
   private String email1;
-
+  @Transient
   private String email2;
-
+  @Transient
   private String email3;
-
+  @Transient
   private String allAddress;
   @Transient
   private String allPhones;

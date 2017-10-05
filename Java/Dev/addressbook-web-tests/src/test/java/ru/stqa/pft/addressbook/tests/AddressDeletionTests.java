@@ -14,18 +14,18 @@ public class AddressDeletionTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().homePage();
-    if (app.address().all().size() == 0) {
+    if (app.db().address().size() == 0){
+      app.goTo().homePage();
       app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null));
     }
   }
 
   @Test
   public void testAddressDeletion() {
-    Contacts before = app.address().all();
+    Contacts before = app.db().address();
     AddressData deletedAddress = before.iterator().next();
     app.address().delete(deletedAddress);
-    Contacts after = app.address().all();
+    Contacts after = app.db().address();
 
     assertEquals(after.size(), before.size() - 1);
 

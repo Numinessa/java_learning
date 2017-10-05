@@ -61,12 +61,12 @@ public class AddressCreationTests extends TestBase {
   public void testAddressCreation(AddressData contact) {
     app.goToHomePage();
 
-    Contacts before =  app.address().all();
+    Contacts before =  app.db().address();
    // File foto = new File("src/test/resources/cat.jpg");
  //   AddressData group = new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withHomeTelephoneNumber("555-555-555").withFoto(foto);
     app.address().makeNewAddress(contact);
 
-    Contacts after = app.address().all();
+    Contacts after = app.db().address();
     assertThat(after.size(), equalTo(before.size() + 1));
 
     assertThat(after, equalTo(

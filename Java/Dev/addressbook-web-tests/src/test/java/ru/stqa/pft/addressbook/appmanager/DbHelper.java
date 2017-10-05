@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
@@ -34,4 +35,15 @@ public Groups groups(){
 return new Groups(result);
 
 }
+  public Contacts address(){
+
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<AddressData> result = session.createQuery( "from AddressData " ).list();
+
+    session.getTransaction().commit();
+    session.close();
+    return new Contacts((Contacts) result);
+
+  }
 }

@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.*;
@@ -13,8 +14,8 @@ public class AddressModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().homePage();
-    if (app.address().all().size() == 0) {
+    if (app.db().address().size() == 0){
+      app.goTo().homePage();
       app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null));
     }
   }
@@ -22,12 +23,12 @@ public class AddressModificationTests extends TestBase {
   @Test
   public void testsAddressModification() {
 
-    Contacts before = app.address().all();
+    Contacts before = app.db().address();
     AddressData modifiedAddress = before.iterator().next();
     AddressData group = new AddressData().withId(modifiedAddress.getId()).withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null);
     app.address().modify(group);
 
-    Contacts after = app.address().all();
+    Contacts after = app.db().address();
     assertEquals(after.size(), before.size());
 
 
