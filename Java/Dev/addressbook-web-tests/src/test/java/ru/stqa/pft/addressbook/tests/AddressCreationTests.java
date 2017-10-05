@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 
 import java.io.BufferedReader;
@@ -59,12 +60,18 @@ public class AddressCreationTests extends TestBase {
 
   @Test(dataProvider = "validContactsFromJson")
   public void testAddressCreation(AddressData contact) {
+    Groups groups = app.db().groups();
+    File foto = new File("src/test/resources/cat.jpg");
+
+    AddressData newContact = new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").
+    /*withGroup("test2").*/withAddress("Ładna 10/15").withHomeTelephoneNumber("555-555-555").withFoto(foto).inGroup(groups.iterator().next());
+
+    app.address().makeNewAddress(contact);
+    app.address().fillAddressForm(newContact, true);
     app.goToHomePage();
 
     Contacts before =  app.db().address();
-   // File foto = new File("src/test/resources/cat.jpg");
- //   AddressData group = new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withHomeTelephoneNumber("555-555-555").withFoto(foto);
-    app.address().makeNewAddress(contact);
+
 
     Contacts after = app.db().address();
     assertThat(after.size(), equalTo(before.size() + 1));
@@ -79,5 +86,9 @@ public class AddressCreationTests extends TestBase {
     File foto = new File("src/test/resourses/stru.png");
     System.out.println(foto.getAbsolutePath());
     System.out.println(foto.exists());
+
+    verifyContactListUi();
   }
+
+
 }

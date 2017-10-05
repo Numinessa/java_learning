@@ -30,7 +30,11 @@ public class ContactHelper extends HelperBase {
     typeName(By.name("address"), addressData.getAddress());
     typeName(By.name("mobile"), addressData.getHomeTelephoneNumber());
     if (creation) {
-      wd.findElement(By.name("submit")).click();//).selectByVisibleText(addressData.getGroup());
+      if (addressData.getGroups().size() > 0){
+        Assert.assertTrue(addressData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroups().iterator().next().getName());;//).selectByVisibleText(addressData.getGroup());)
+      }
+     // wd.findElement(By.name("submit")).click();//).selectByVisibleText(addressData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -95,7 +99,7 @@ public class ContactHelper extends HelperBase {
 
   public void create(AddressData address) {
     initAddressCreation();
-    fillAddressForm(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup("test2").withAddress("Ładna 10/15").withHomeTelephoneNumber("555-555-555"), true);
+    fillAddressForm(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska")/*.withGroup("test2")*/.withAddress("Ładna 10/15").withHomeTelephoneNumber("555-555-555"), true);
     submitNewAddress();
     goToHomePage();
   }
@@ -152,7 +156,7 @@ public class ContactHelper extends HelperBase {
       String allPhones = cells.get(5).getText();
 
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      groups.add(new AddressData().withId(id).withFirstName(name).withLastName(last).withGroup(null).withAllAddress(allAddress).withAllEmail(allEmails).
+      groups.add(new AddressData().withId(id).withFirstName(name).withLastName(last)./*withGroup(null).*/withAllAddress(allAddress).withAllEmail(allEmails).
               withAllPhones(allPhones));
     }
     return groups;

@@ -20,7 +20,7 @@ public class ContactDetailsTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().homePage();
     if (app.address().all().size() == 0) {
-      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null));
+      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska")/*.withGroup(null).*/.withAddress(null).withHomeTelephoneNumber(null));
     }
   }
 

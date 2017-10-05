@@ -16,7 +16,7 @@ public class AddressModificationTests extends TestBase {
   public void ensurePreconditions() {
     if (app.db().address().size() == 0){
       app.goTo().homePage();
-      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null));
+      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska")./*withGroup(null).*/withAddress(null).withHomeTelephoneNumber(null));
     }
   }
 
@@ -25,7 +25,7 @@ public class AddressModificationTests extends TestBase {
 
     Contacts before = app.db().address();
     AddressData modifiedAddress = before.iterator().next();
-    AddressData group = new AddressData().withId(modifiedAddress.getId()).withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null);
+    AddressData group = new AddressData().withId(modifiedAddress.getId()).withFirstName("Agnieszka").withLastName("Budzyńska")./*withGroup(null).*/withAddress(null).withHomeTelephoneNumber(null);
     app.address().modify(group);
 
     Contacts after = app.db().address();

@@ -16,7 +16,7 @@ public class AddressDeletionTests extends TestBase {
   public void ensurePreconditions() {
     if (app.db().address().size() == 0){
       app.goTo().homePage();
-      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska").withGroup(null).withAddress(null).withHomeTelephoneNumber(null));
+      app.address().create(new AddressData().withFirstName("Agnieszka").withLastName("Budzyńska")./*withGroup(null).*/withAddress(null).withHomeTelephoneNumber(null));
     }
   }
 
@@ -30,6 +30,6 @@ public class AddressDeletionTests extends TestBase {
     assertEquals(after.size(), before.size() - 1);
 
     assertThat(after, equalTo(before.without(deletedAddress)));
-
+    verifyContactListUi();
   }
 }
