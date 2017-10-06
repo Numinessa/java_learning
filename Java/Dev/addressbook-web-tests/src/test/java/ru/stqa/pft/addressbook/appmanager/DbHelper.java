@@ -43,7 +43,7 @@ return new Groups(result);
 
     session.getTransaction().commit();
     session.close();
-    return new Contacts((Contacts) result);
+    return new Contacts(result);
 
   }
 }
