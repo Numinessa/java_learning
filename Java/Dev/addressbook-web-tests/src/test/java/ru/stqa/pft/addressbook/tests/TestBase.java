@@ -47,6 +47,7 @@ public class TestBase {
     return app;
   }
 
+  
   @BeforeMethod
   public void logTestStart(Method m, Object[] p) {
     logger.info("Start test " + m.getName() + " with parameters " + Arrays.asList(p));
