@@ -30,6 +30,9 @@ task testGroups(type: Test) {
     if (project.hasProperty('target')) {
         systemProperties 'target', "${target}"
     }
+    if (project.hasProperty('platform')) {
+        systemProperties 'platform', "${platform}"
+    }
     if (project.hasProperty('verifyUI')) {
         systemProperties 'verifyUI', "${verifyUI}"
     }
@@ -41,6 +44,9 @@ task testContacts(type: Test) {
     }
     if (project.hasProperty('browser')) {
         systemProperties 'browser', "${browser}"
+    }
+    if (project.hasProperty('platform')) {
+        systemProperties 'platform', "${platform}"
     }
     if (project.hasProperty('target')) {
         systemProperties 'target', "${target}"
